@@ -20,10 +20,15 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
 		if (PlayState.instance == null) return;
 
-                switch(PlayState.instance.currentSong.songName) {
+                var songName = PlayState.instance.currentSong.songName;
+                var songVariation = PlayState.instance.currentVariation;
+                var songString = songName + "-" + songVariation;
+                songString = songString.toLowerCase();
+
+                switch(songString) {
                         default:
                                 cameraSetter.SETTINGS = null;
-                                trace("Song("+PlayState.instance.currentSong.songName+") does not have camera settings set.");
+                                trace("Song( "+songString+" ) does not have camera settings set.");
                 }
                 
         }
