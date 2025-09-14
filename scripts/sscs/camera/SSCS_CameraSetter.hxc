@@ -1,6 +1,8 @@
+import flixel.FlxG;
+import flixel.tweens.FlxEase;
+
 import funkin.modding.module.Module;
 
-import flixel.tweens.FlxEase;
 import funkin.play.PlayState;
 
 class SSCS_CameraSetter extends Module {
@@ -12,20 +14,20 @@ class SSCS_CameraSetter extends Module {
 		position: {
 			x: null,
 			y: null,
-			ease: FlxEase.linear,
-			time: 0
+			ease: FlxEase.sineInOut,
+			time: 1.0
 		},
 		zoom: {
 			zoom: 1.0,
-			time: 0.0,
-			ease: FlxEase.linear,
+			time: 1.0,
+			ease: FlxEase.sineInOut,
 			direct: false
 		}
 	}
 	public var SETTINGS = null;
 
 	function setCameraPosition(x:Float = 0, y:Float = 0, time:Float = 0, ease:FlxEase = FlxEase.linear) {
-		PlayState.instance.tweenCameraToPosition((x ?? PlayState.instance.cameraFollowPoint.x),(y ?? PlayState.instance.cameraFollowPoint.y), time, (ease ?? FlxEase.linear));
+		PlayState.instance.tweenCameraToPosition((x ?? PlayState.instance.currentStage.getDad().cameraFocusPoint.x),(y ?? PlayState.instance.currentStage.getDad().cameraFocusPoint.y), time, (ease ?? FlxEase.linear));
 	}
 
 	
