@@ -1,0 +1,30 @@
+import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
+
+import funkin.play.PlayState;
+
+class SSCS_BaseGame_CameraPositions extends Module {
+
+        var cameraSetter:Module;
+
+	public function new() {
+		super("sscs-basegame-camerapositions-module", {
+                        state: PlayState
+                });
+	}
+
+        public function onStateChangeBegin(event:StateChangeScriptEvent)
+        {
+                cameraSetter = ModuleHandler.getModule("sscs-camera-setter-module");
+                super.onStateChangeBegin(event);
+
+                if (event.targetState != PlayState)
+                        return;
+
+                switch(PlayState.instance.currentSong.songName) {
+                        default:
+                                trace("Song("+PlayState.instance.currentSong.songName+") does not have camera settings set.");
+                }
+                
+        }
+}
