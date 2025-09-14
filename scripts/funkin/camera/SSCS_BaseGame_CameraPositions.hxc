@@ -18,12 +18,12 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 cameraSetter = ModuleHandler.getModule("sscs-camera-setter-module");
                 super.onStateChangeBegin(event);
 
-                if (event.targetState != PlayState)
-                        return;
-
+		if (PlayState.instance == null) return;
+                
                 switch(PlayState.instance.currentSong.songName) {
                         default:
-                                throw "Song("+PlayState.instance.currentSong.songName+") does not have camera settings set.";
+                                cameraSetter.SETTINGS = null;
+                                trace("Song("+PlayState.instance.currentSong.songName+") does not have camera settings set.");
                 }
                 
         }

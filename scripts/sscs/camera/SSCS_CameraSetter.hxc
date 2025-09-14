@@ -43,6 +43,10 @@ class SSCS_CameraSetter extends Module {
 		if (SETTINGS == null)
 			SETTINGS = DEFAULT_SETTINGS;
 
+		if (PlayState.instance == null) return;
+		
+		trace("Camera Settings for Song( " + PlayState.instance.currentSong.songName + " ): " + SETTINGS);
+
 		setCameraPosition(SETTINGS.position.x, SETTINGS.position.y, SETTINGS.position.time, SETTINGS.position.ease);
 		setCameraZoom(SETTINGS.zoom.zoom, SETTINGS.zoom.time, SETTINGS.zoom.ease, SETTINGS.zoom.direct);
         }
