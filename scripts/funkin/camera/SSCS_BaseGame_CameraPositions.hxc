@@ -13,13 +13,13 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 });
 	}
 
-        public function onStateChangeBegin(event:StateChangeScriptEvent)
+        public function onCountdownStart(event:CountdownScriptEvent)
         {
+                super.onCountdownStart(event);
                 cameraSetter = ModuleHandler.getModule("sscs-camera-setter-module");
-                super.onStateChangeBegin(event);
 
 		if (PlayState.instance == null) return;
-                
+
                 switch(PlayState.instance.currentSong.songName) {
                         default:
                                 cameraSetter.SETTINGS = null;
