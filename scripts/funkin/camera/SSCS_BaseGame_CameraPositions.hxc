@@ -38,7 +38,7 @@ class SSCS_BaseGame_CameraPositions extends Module {
 			case "bopeebo-pico":
 				if (event.step == CountdownStep.GO)
 					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
-			case "darnell-erect":
+			case "darnell-erect","darnell-default","darnell-bf":
 				if (event.step == CountdownStep.GO)
 					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.elasticOut, false);
 		}
@@ -115,8 +115,8 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
 				settings.zoom.zoom = 1.5;
 				settings.zoom.direct = false;
-			case "darnell-erect":
-				trace("Weekend1 Erect Song: " + songString);
+			case "darnell-erect", "darnell-default", "darnell-bf":
+				trace("Darnell Song, Variation: " + songVariation.toLowerCase());
 
 				settings.position.x = gfPoint.x;
 				settings.position.y = gfPoint.y - 150;
