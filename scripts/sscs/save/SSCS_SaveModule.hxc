@@ -1,9 +1,6 @@
 import StringTools;
-
 import flixel.FlxG;
-
 import funkin.modding.module.Module;
-
 import funkin.util.FileUtil;
 import funkin.util.FileWriteMode;
 
@@ -14,33 +11,29 @@ class SSCS_SaveModule extends Module {
 		super("sscs-save-module");
 	}
 
-        function getDisabledFileContent()
-        {
-                if (!FileUtil.fileExists(disabledFilePath))
+	function getDisabledFileContent() {
+		if (!FileUtil.fileExists(disabledFilePath))
 			FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
-                var data = StringTools.replace(FileUtil.readStringFromPath(disabledFilePath), " ", "");
-		if (data == null)
-		{
+		var data = StringTools.replace(FileUtil.readStringFromPath(disabledFilePath), " ", "");
+		if (data == null) {
 			data = "";
 			FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
 		}
-                trace("demunterm-Disabled text contents: " + '"' + data + '"');
+		trace("demunterm-Disabled text contents: " + '"' + data + '"');
 
-                return data;
-        }
+		return data;
+	}
 
-        function toggleEnabled()
-        {
-                if (!getEnabled())
-                        FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
-                else
-                        FileUtil.writeStringToPath(disabledFilePath, "disabled", FileWriteMode.Force);
+	function toggleEnabled() {
+		if (!getEnabled())
+			FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
+		else
+			FileUtil.writeStringToPath(disabledFilePath, "disabled", FileWriteMode.Force);
 
 		FlxG.resetState();
-        }
+	}
 
-        function getEnabled()
-        {
-                return getDisabledFileContent() == "";
-        }
+	function getEnabled() {
+		return getDisabledFileContent() == "";
+	}
 }

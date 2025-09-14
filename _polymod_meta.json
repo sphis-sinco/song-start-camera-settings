@@ -1,6 +1,6 @@
 {
-        "title": "Demunterm",
-        "description": "Uh-oh! Your girlfriend is a demon. Teneu doesn't like that.",
+        "title": "Song Start Camera Settings",
+        "description": "Just sets the camera position and zoom n shit at the start of the countdown",
         "contributors": [
                 {
                         "name": "Sphis",
@@ -8,6 +8,6 @@
                 }
         ],
         "api_version": "0.7.4",
-        "mod_version": "1.1.1",
+        "mod_version": "1.0.0",
         "license": "CC BY 4.0,MIT"
 }

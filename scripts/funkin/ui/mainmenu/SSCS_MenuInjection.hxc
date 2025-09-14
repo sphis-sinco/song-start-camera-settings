@@ -2,7 +2,6 @@ import flixel.FlxG;
 import funkin.modding.module.Module;
 import funkin.util.ReflectUtil;
 import funkin.ui.mainmenu.MainMenuState;
-
 import funkin.modding.module.ModuleHandler;
 
 class SSCS_MenuInjection extends Module {
@@ -23,15 +22,18 @@ class SSCS_MenuInjection extends Module {
 		});
 	}
 
-	function onStateChangeEnd() {
-		super.onStateChangeEnd();
+	function onStateChangeEnd(event:StateChangeScriptEvent) {
+		super.onStateChangeEnd(event);
 
 		save = ModuleHandler.getModule("sscs-save-module");
+		var stateClassName = ReflectUtil.getClassNameOf(FlxG.state).split(".");
+		currentState = stateClassName[stateClassName.length - 1];
 
-		FlxG.state.leftWatermarkText.text += "\n" + ModText;
-		FlxG.state.leftWatermarkText.y -= 15 * 1;
+		if (currentState != "MainMenuState")
+			return;
 
-		FlxG.state.leftWatermarkText.text += ": ";
+		FlxG.state.leftWatermarkText.text += "\n" + ModText + ": ";
+		FlxG.state.leftWatermarkText.y -= 15;
 
 		if (save.getEnabled())
 			FlxG.state.leftWatermarkText.text += enabledText;
@@ -44,9 +46,9 @@ class SSCS_MenuInjection extends Module {
 	function onUpdate(event:UpdateScriptEvent) {
 		super.onUpdate();
 
-		if (FlxG.keys.pressed.F10 && FlxG.keys.justPressed.T && FlxG.state.subState == null)
-		{
-			save.toggleEnabled();
+		if (currentState == "MainMenuState" && FlxG.state.subState == null) {
+			if (FlxG.keys.pressed.F10 && FlxG.keys.justPressed.S)
+				save.toggleEnabled();
 		}
 	}
 }
