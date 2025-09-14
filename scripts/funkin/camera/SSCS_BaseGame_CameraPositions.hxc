@@ -28,6 +28,8 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 cameraSetter.SETTINGS = cameraSetter.DEFAULT_SETTINGS;
 
                 switch(songString) {
+                        case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
+                                trace("Week1 Erect Song: "+songString);
                         default:
                                 trace("Song( "+songString+" ) does not have camera settings set.");
                 }
