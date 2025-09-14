@@ -25,14 +25,17 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 var songString = songName + "-" + songVariation;
                 songString = songString.toLowerCase();
 
-                cameraSetter.SETTINGS = cameraSetter.DEFAULT_SETTINGS;
+                var settings = cameraSetter.DEFAULT_SETTINGS;
 
                 switch(songString) {
                         case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
                                 trace("Week1 Erect Song: "+songString);
+
+                                settings
                         default:
                                 trace("Song( "+songString+" ) does not have camera settings set.");
                 }
-                
+
+                cameraSetter.SETTINGS = settings;
         }
 }
