@@ -14,6 +14,8 @@ class SSCS_BaseGame_CameraPositions extends Module {
         var songString:String;
         var currentStage:Null<Stage>;
 
+        var reset = false;
+
 	public function new() {
 		super("sscs-basegame-camerapositions-module", {
                         state: PlayState
@@ -37,6 +39,12 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 }
         }
 
+        public function onSongRetry(event:SongRetryEvent)
+        {
+                super.onSongRetry(event);
+                reset = true;
+        }
+
         public function onCountdownStart(event:CountdownScriptEvent)
         {
                 super.onCountdownStart(event);
@@ -52,13 +60,27 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 songString = songName + "-" + songVariation;
                 songString = songString.toLowerCase();
 
-                var settings = cameraSetter.DEFAULT_SETTINGS;
+                var settings = {
+                        position: {
+                                x: null,
+                                y: null,
+                                ease: FlxEase.sineInOut,
+                                time: 1.0
+                        },
+                        zoom: {
+                                zoom: 1.0,
+                                time: 1.0,
+                                ease: FlxEase.sineInOut,
+                                direct: false
+                        }
+                };
 
                 var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
                 var dadPoint = currentStage.getDad().cameraFocusPoint;
                 var bfPoint = currentStage.getBoyfriend().cameraFocusPoint;
 
-                if (!PlayState.instance.needsReset) {
+                if (reset == false) {
+                        trace('Did not come from a reset');
                         settings.position.time = 0;
                         settings.zoom.time = 0;
                 }
@@ -70,10 +92,8 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
                                 settings.position.x = gfPoint.x;
                                 settings.position.y = gfPoint.y - 150;
-                                settings.position.time = 0;
 
                                 settings.zoom.zoom = 1.25;
-                                settings.zoom.time = 0;
                                 settings.zoom.direct = false;
                         case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
                                 trace("Week1 Erect Song: "+songString);
@@ -97,5 +117,8 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 }
 
                 cameraSetter.SETTINGS = settings;
+
+                if (reset == null || reset)
+                        reset = false;
         }
 }
