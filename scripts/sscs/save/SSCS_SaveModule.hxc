@@ -1,0 +1,46 @@
+import StringTools;
+
+import flixel.FlxG;
+
+import funkin.modding.module.Module;
+
+import funkin.util.FileUtil;
+import funkin.util.FileWriteMode;
+
+class SSCS_SaveModule extends Module {
+	var disabledFilePath = "modData/sscs/disabled.txt";
+
+	public function new() {
+		super("sscs-save-module");
+	}
+
+        function getDisabledFileContent()
+        {
+                if (!FileUtil.fileExists(disabledFilePath))
+			FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
+                var data = StringTools.replace(FileUtil.readStringFromPath(disabledFilePath), " ", "");
+		if (data == null)
+		{
+			data = "";
+			FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
+		}
+                trace("demunterm-Disabled text contents: " + '"' + data + '"');
+
+                return data;
+        }
+
+        function toggleEnabled()
+        {
+                if (!getEnabled())
+                        FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
+                else
+                        FileUtil.writeStringToPath(disabledFilePath, "disabled", FileWriteMode.Force);
+
+		FlxG.resetState();
+        }
+
+        function getEnabled()
+        {
+                return getDisabledFileContent() == "";
+        }
+}

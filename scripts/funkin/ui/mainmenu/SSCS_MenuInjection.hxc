@@ -1,0 +1,52 @@
+import flixel.FlxG;
+import funkin.modding.module.Module;
+import funkin.util.ReflectUtil;
+import funkin.ui.mainmenu.MainMenuState;
+
+import funkin.modding.module.ModuleHandler;
+
+class SSCS_MenuInjection extends Module {
+	var ModText = "Song Start Camera Settings (v1.0.0)";
+
+	var disabledText = "Disabled";
+	var enabledText = "Enabled";
+
+	var toggleControlsText = "(Press F10 + S to toggle)";
+
+	var currentState = "";
+
+	var save:Module;
+
+	function new() {
+		super("sscs-menu-injection", {
+			state: MainMenuState
+		});
+	}
+
+	function onStateChangeEnd() {
+		super.onStateChangeEnd();
+
+		save = ModuleHandler.getModule("sscs-save-module");
+
+		FlxG.state.leftWatermarkText.text += "\n" + ModText;
+		FlxG.state.leftWatermarkText.y -= 15 * 1;
+
+		FlxG.state.leftWatermarkText.text += ": ";
+
+		if (save.getEnabled())
+			FlxG.state.leftWatermarkText.text += enabledText;
+		else
+			FlxG.state.leftWatermarkText.text += disabledText;
+
+		FlxG.state.leftWatermarkText.text += " " + toggleControlsText;
+	}
+
+	function onUpdate(event:UpdateScriptEvent) {
+		super.onUpdate();
+
+		if (FlxG.keys.pressed.F10 && FlxG.keys.justPressed.T && FlxG.state.subState == null)
+		{
+			save.toggleEnabled();
+		}
+	}
+}
