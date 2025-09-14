@@ -2,6 +2,7 @@ import flixel.FlxG;
 import flixel.tweens.FlxEase;
 
 import funkin.modding.module.Module;
+import funkin.modding.module.ModuleHandler;
 
 import funkin.play.PlayState;
 
@@ -27,6 +28,9 @@ class SSCS_CameraSetter extends Module {
 	public var SETTINGS = null;
 
 	function setCameraPosition(x:Float = 0, y:Float = 0, time:Float = 0, ease:FlxEase = FlxEase.linear) {
+		if (!ModuleHandler.getModule("sscs-save-module").getEnabled())
+			return;
+
 		PlayState.instance.tweenCameraToPosition((x ?? PlayState.instance.currentStage.getDad().cameraFocusPoint.x),(y ?? PlayState.instance.currentStage.getDad().cameraFocusPoint.y), time, (ease ?? FlxEase.linear));
 	}
 
@@ -35,6 +39,8 @@ class SSCS_CameraSetter extends Module {
 		// direct == true: Set zoom directly.
 		// direct == false: Set zoom as a multiplier of the current stage's default zoom.
 
+		if (!ModuleHandler.getModule("sscs-save-module").getEnabled())
+			return;
 		PlayState.instance.tweenCameraZoom(zoom, time, direct, (ease ?? FlxEase.linear));
 	}
 
@@ -45,7 +51,10 @@ class SSCS_CameraSetter extends Module {
 		if (SETTINGS == null)
 			SETTINGS = DEFAULT_SETTINGS;
 
-		if (PlayState.instance == null) return;
+		if (PlayState.instance == null)
+			return;
+		if (!ModuleHandler.getModule("sscs-save-module").getEnabled())
+			return;
 
 		var songName = PlayState.instance.currentSong.songName;
                 var songVariation = PlayState.instance.currentVariation;

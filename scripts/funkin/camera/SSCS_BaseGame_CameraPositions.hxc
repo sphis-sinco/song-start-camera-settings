@@ -60,6 +60,8 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
 		if (PlayState.instance == null)
 			return;
+		if (!ModuleHandler.getModule("sscs-save-module").getEnabled())
+			return;
 		currentStage = PlayState.instance.currentStage;
 
 		var songName = PlayState.instance.currentSong.songName;
