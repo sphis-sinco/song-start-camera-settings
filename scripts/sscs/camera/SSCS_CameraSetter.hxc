@@ -1,7 +1,22 @@
 import funkin.modding.module.Module;
 
+import flixel.tweens.FlxEase;
+import funkin.play.PlayState;
+
 class SSCS_CameraSetter extends Module {
 	public function new() {
 		super("sscs-camera-setter-module");
+	}
+
+	function setCameraPosition(x:Float = 0, y:Float = 0, time:Float = 0, ease:FlxEase = FlxEase.linear) {
+		PlayState.instance.tweenCameraToPosition(x,y, time, (ease ?? FlxEase.linear));
+	}
+
+	
+	function setCameraZoom(zoom:Float = 1, time:Float = 0, ease:FlxEase = FlxEase.linear, direct:Bool = true) {
+		// direct == true: Set zoom directly.
+		// direct == false: Set zoom as a multiplier of the current stage's default zoom.
+
+		PlayState.instance.tweenCameraZoom(zoom, time, direct, (ease ?? FlxEase.linear));
 	}
 }
