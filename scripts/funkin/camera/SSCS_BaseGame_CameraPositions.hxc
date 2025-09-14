@@ -25,6 +25,12 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 super.onCountdownStep(event);
 
                 switch(songString) {
+                        case "bopeebo-default", "fresh-default":
+                                if (event.step == CountdownStep.GO)
+                                        cameraSetter.setCameraZoom(currentStage.camZoom, 1.0, FlxEase.linear, false);
+                        case "dadbattle-default":
+                                if (event.step == CountdownStep.GO)
+                                        cameraSetter.setCameraZoom(currentStage.camZoom, 8.0, FlxEase.linear, false);
                         case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
                                 if (event.step == CountdownStep.GO)
                                         cameraSetter.setCameraZoom(currentStage.camZoom, 1.0, FlxEase.bounceOut, false);
@@ -48,11 +54,20 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
                 var settings = cameraSetter.DEFAULT_SETTINGS;
 
+                var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
+
                 switch(songString) {
+                        case "bopeebo-default", "fresh-default", "dadbattle-default":
+                                trace("Week1 Song: "+songString);
+
+
+                                settings.position.x = gfPoint.x;
+                                settings.position.y = gfPoint.y - 150;
+
+                                settings.zoom.zoom = 1.25;
+                                settings.zoom.direct = false;
                         case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
                                 trace("Week1 Erect Song: "+songString);
-
-                                var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
 
                                 settings.position.x = gfPoint.x;
                                 settings.position.y = gfPoint.y - 150;
