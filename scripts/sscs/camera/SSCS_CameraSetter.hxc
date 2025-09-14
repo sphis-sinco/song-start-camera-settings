@@ -1,0 +1,7 @@
+import funkin.modding.module.Module;
+
+class SSCS_CameraSetter extends Module {
+	public function new() {
+		super("sscs-camera-setter-module");
+	}
+}
