@@ -1,130 +1,135 @@
 import flixel.tweens.FlxEase;
-
 import funkin.modding.module.Module;
 import funkin.modding.module.ModuleHandler;
-
 import funkin.play.PlayState;
 import funkin.play.stage.Stage;
 import funkin.play.Countdown;
 import funkin.play.CountdownStep;
 
 class SSCS_BaseGame_CameraPositions extends Module {
+	var cameraSetter:Module;
+	var songString:String;
+	var currentStage:Null<Stage>;
 
-        var cameraSetter:Module;
-        var songString:String;
-        var currentStage:Null<Stage>;
-
-        var reset = false;
+	var reset = false;
 
 	public function new() {
 		super("sscs-basegame-camerapositions-module", {
-                        state: PlayState
-                });
+			state: PlayState
+		});
 	}
 
-        public function onCountdownStep(event:CountdownScriptEvent)
-        {
-                super.onCountdownStep(event);
+	public function onCountdownStep(event:CountdownScriptEvent) {
+		super.onCountdownStep(event);
 
-                switch(songString) {
-                        case "bopeebo-default", "fresh-default":
-                                if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.linear, false);
-                        case "dadbattle-default":
-                                if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(1.0, 8.0, FlxEase.linear, false);
-                        case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
-                                if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
-                        case "fresh-pico":
-                                if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(1.0, 9.0, FlxEase.circIn, false);
-                        case "bopeebo-pico":
-                                if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
-                }
-        }
+		switch (songString) {
+			case "bopeebo-default", "fresh-default":
+				if (event.step == CountdownStep.GO)
+					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.linear, false);
+			case "dadbattle-default":
+				if (event.step == CountdownStep.GO)
+					cameraSetter.setCameraZoom(1.0, 8.0, FlxEase.linear, false);
+			case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
+				if (event.step == CountdownStep.GO)
+					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
+			case "fresh-pico":
+				if (event.step == CountdownStep.GO)
+					cameraSetter.setCameraZoom(1.0, 9.0, FlxEase.circIn, false);
+			case "bopeebo-pico":
+				if (event.step == CountdownStep.GO)
+					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
+			case "darnell-erect":
+				if (event.step == CountdownStep.GO)
+					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.elasticOut, false);
+		}
+	}
 
-        public function onSongRetry(event:SongRetryEvent)
-        {
-                super.onSongRetry(event);
-                reset = true;
-        }
+	public function onSongRetry(event:SongRetryEvent) {
+		super.onSongRetry(event);
+		reset = true;
+	}
 
-        public function onCountdownStart(event:CountdownScriptEvent)
-        {
-                super.onCountdownStart(event);
-                cameraSetter = ModuleHandler.getModule("sscs-camera-setter-module");
-                songString = null;
-                currentStage = null;
+	public function onCountdownStart(event:CountdownScriptEvent) {
+		super.onCountdownStart(event);
+		cameraSetter = ModuleHandler.getModule("sscs-camera-setter-module");
+		songString = null;
+		currentStage = null;
 
-		if (PlayState.instance == null) return;
+		if (PlayState.instance == null)
+			return;
 		currentStage = PlayState.instance.currentStage;
 
-                var songName = PlayState.instance.currentSong.songName;
-                var songVariation = PlayState.instance.currentVariation;
-                songString = songName + "-" + songVariation;
-                songString = songString.toLowerCase();
+		var songName = PlayState.instance.currentSong.songName;
+		var songVariation = PlayState.instance.currentVariation;
+		songString = songName + "-" + songVariation;
+		songString = songString.toLowerCase();
 
-                var settings = {
-                        position: {
-                                x: null,
-                                y: null,
-                                ease: FlxEase.sineInOut,
-                                time: 1.0
-                        },
-                        zoom: {
-                                zoom: 1.0,
-                                time: 1.0,
-                                ease: FlxEase.sineInOut,
-                                direct: false
-                        }
-                };
+		var settings = {
+			position: {
+				x: null,
+				y: null,
+				ease: FlxEase.sineInOut,
+				time: 1.0
+			},
+			zoom: {
+				zoom: 1.0,
+				time: 1.0,
+				ease: FlxEase.sineInOut,
+				direct: false
+			}
+		};
 
-                var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
-                var dadPoint = currentStage.getDad().cameraFocusPoint;
-                var bfPoint = currentStage.getBoyfriend().cameraFocusPoint;
+		var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
+		var dadPoint = currentStage.getDad().cameraFocusPoint;
+		var bfPoint = currentStage.getBoyfriend().cameraFocusPoint;
 
-                if (reset == false) {
-                        trace('Did not come from a reset');
-                        settings.position.time = 0;
-                        settings.zoom.time = 0;
-                }
+		if (reset == false) {
+			trace('Did not come from a reset');
+			settings.position.time = 0;
+			settings.zoom.time = 0;
+		}
 
-                switch(songString) {
-                        case "bopeebo-default", "fresh-default", "dadbattle-default":
-                                trace("Week1 Song: "+songString);
+		switch (songString) {
+			case "bopeebo-default", "fresh-default", "dadbattle-default":
+				trace("Week1 Song: " + songString);
 
+				settings.position.x = gfPoint.x;
+				settings.position.y = gfPoint.y - 150;
 
-                                settings.position.x = gfPoint.x;
-                                settings.position.y = gfPoint.y - 150;
+				settings.zoom.zoom = 1.25;
+				settings.zoom.direct = false;
+			case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
+				trace("Week1 Erect Song: " + songString);
 
-                                settings.zoom.zoom = 1.25;
-                                settings.zoom.direct = false;
-                        case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
-                                trace("Week1 Erect Song: "+songString);
+				settings.position.x = gfPoint.x;
+				settings.position.y = gfPoint.y - 150;
 
-                                settings.position.x = gfPoint.x;
-                                settings.position.y = gfPoint.y - 150;
+				settings.zoom.zoom = 1.5;
+				settings.zoom.direct = false;
+			case "bopeebo-pico", "fresh-pico", "dadbattle-pico":
+				trace("Week1 Pico Mix Song: " + songString);
 
-                                settings.zoom.zoom = 1.5;
-                                settings.zoom.direct = false;
-                        case "bopeebo-pico", "fresh-pico", "dadbattle-pico":
-                                trace("Week1 Pico Mix Song: "+songString);
+				settings.position.x = bfPoint.x;
+				settings.position.y = bfPoint.y;
+				settings.position.ease = FlxEase.circOut;
 
-                                settings.position.x = bfPoint.x;
-                                settings.position.y = bfPoint.y;
-                                settings.position.ease = FlxEase.circOut;
+				settings.zoom.zoom = 1.5;
+				settings.zoom.direct = false;
+			case "darnell-erect":
+				trace("Weekend1 Erect Song: " + songString);
 
-                                settings.zoom.zoom = 1.5;
-                                settings.zoom.direct = false;
-                        default:
-                                trace("Song( "+songString+" ) does not have camera settings set.");
-                }
+				settings.position.x = gfPoint.x;
+				settings.position.y = gfPoint.y - 150;
 
-                cameraSetter.SETTINGS = settings;
+				settings.zoom.zoom = 1.25;
+				settings.zoom.direct = false;
+			default:
+				trace("Song( " + songString + " ) does not have camera settings set.");
+		}
 
-                if (reset == null || reset)
-                        reset = false;
-        }
+		cameraSetter.SETTINGS = settings;
+
+		if (reset == null || reset)
+			reset = false;
+	}
 }
