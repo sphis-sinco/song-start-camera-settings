@@ -39,6 +39,9 @@ class SSCS_BaseGame_CameraPositions extends Module {
 				if (event.step == CountdownStep.GO)
 					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
 			case "darnell-erect","darnell-default","darnell-bf":
+				if (songString == "darnell-bf" && event.step == CountdownStep.THREE)
+					if (cameraSetter.SETTINGS.position.x != currentStage.getDad().cameraFocusPoint.x)
+						cameraSetter.setCameraPosition(currentStage.getDad().cameraFocusPoint.x, currentStage.getDad().cameraFocusPoint.y, 2.0, FlxEase.sineInOut);
 				if (event.step == CountdownStep.GO)
 					cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.elasticOut, false);
 		}
@@ -115,13 +118,28 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
 				settings.zoom.zoom = 1.5;
 				settings.zoom.direct = false;
-			case "darnell-erect", "darnell-default", "darnell-bf":
+			case "darnell-erect", "darnell-default":
 				trace("Darnell Song, Variation: " + songVariation.toLowerCase());
 
 				settings.position.x = gfPoint.x;
 				settings.position.y = gfPoint.y - 150;
 
 				settings.zoom.zoom = 1.25;
+				settings.zoom.direct = false;
+			case "darnell-bf":
+				trace("Darnell Boyfriend Mix");
+
+				if (reset)
+				{
+					settings.position.x = dadPoint.x;
+					settings.position.y = dadPoint.y;
+					settings.zoom.zoom = 1.0;
+				} else {
+					settings.position.x = bfPoint.x;
+					settings.position.y = bfPoint.y;
+					settings.zoom.zoom = 1.25;
+				}
+
 				settings.zoom.direct = false;
 			default:
 				trace("Song( " + songString + " ) does not have camera settings set.");
