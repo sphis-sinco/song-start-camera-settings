@@ -29,13 +29,16 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 switch(songString) {
                         case "bopeebo-default", "fresh-default":
                                 if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(currentStage.camZoom, 1.0, FlxEase.linear, false);
+                                        cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.linear, false);
                         case "dadbattle-default":
                                 if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(currentStage.camZoom, 8.0, FlxEase.linear, false);
+                                        cameraSetter.setCameraZoom(1.0, 8.0, FlxEase.linear, false);
                         case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
                                 if (event.step == CountdownStep.GO)
-                                        cameraSetter.setCameraZoom(currentStage.camZoom, 1.0, FlxEase.bounceOut, false);
+                                        cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
+                        case "fresh-pico":
+                                if (event.step == CountdownStep.GO)
+                                        cameraSetter.setCameraZoom(1.0, 9.0, FlxEase.circIn, false);
                 }
         }
 
