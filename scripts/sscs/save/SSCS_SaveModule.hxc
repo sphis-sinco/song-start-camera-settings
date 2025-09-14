@@ -19,7 +19,7 @@ class SSCS_SaveModule extends Module {
 			data = "";
 			FileUtil.writeStringToPath(disabledFilePath, "", FileWriteMode.Force);
 		}
-		trace("demunterm-Disabled text contents: " + '"' + data + '"');
+		trace(disabledFilePath+" text contents: " + '"' + data + '"');
 
 		return data;
 	}
