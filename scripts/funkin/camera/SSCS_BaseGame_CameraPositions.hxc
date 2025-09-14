@@ -23,7 +23,7 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
                 switch(PlayState.instance.currentSong.songName) {
                         default:
-                                trace("Song("+PlayState.instance.currentSong.songName+") does not have camera settings set.");
+                                throw "Song("+PlayState.instance.currentSong.songName+") does not have camera settings set.";
                 }
                 
         }
