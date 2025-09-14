@@ -55,6 +55,13 @@ class SSCS_BaseGame_CameraPositions extends Module {
                 var settings = cameraSetter.DEFAULT_SETTINGS;
 
                 var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
+                var dadPoint = currentStage.getDad().cameraFocusPoint;
+                var bfPoint = currentStage.getBoyfriend().cameraFocusPoint;
+
+                if (!PlayState.instance.needsReset) {
+                        settings.position.time = 0;
+                        settings.zoom.time = 0;
+                }
 
                 switch(songString) {
                         case "bopeebo-default", "fresh-default", "dadbattle-default":
@@ -63,14 +70,25 @@ class SSCS_BaseGame_CameraPositions extends Module {
 
                                 settings.position.x = gfPoint.x;
                                 settings.position.y = gfPoint.y - 150;
+                                settings.position.time = 0;
 
                                 settings.zoom.zoom = 1.25;
+                                settings.zoom.time = 0;
                                 settings.zoom.direct = false;
                         case "bopeebo-erect", "fresh-erect", "dadbattle-erect":
                                 trace("Week1 Erect Song: "+songString);
 
                                 settings.position.x = gfPoint.x;
                                 settings.position.y = gfPoint.y - 150;
+
+                                settings.zoom.zoom = 1.5;
+                                settings.zoom.direct = false;
+                        case "bopeebo-pico", "fresh-pico", "dadbattle-pico":
+                                trace("Week1 Pico Mix Song: "+songString);
+
+                                settings.position.x = bfPoint.x;
+                                settings.position.y = bfPoint.y;
+                                settings.position.ease = FlxEase.circOut;
 
                                 settings.zoom.zoom = 1.5;
                                 settings.zoom.direct = false;
