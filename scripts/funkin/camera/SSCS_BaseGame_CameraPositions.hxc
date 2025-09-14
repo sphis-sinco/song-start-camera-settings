@@ -39,6 +39,9 @@ class SSCS_BaseGame_CameraPositions extends Module {
                         case "fresh-pico":
                                 if (event.step == CountdownStep.GO)
                                         cameraSetter.setCameraZoom(1.0, 9.0, FlxEase.circIn, false);
+                        case "bopeebo-pico":
+                                if (event.step == CountdownStep.GO)
+                                        cameraSetter.setCameraZoom(1.0, 1.0, FlxEase.bounceOut, false);
                 }
         }
 
