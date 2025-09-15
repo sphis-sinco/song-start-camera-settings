@@ -78,7 +78,7 @@ class SSCS_BaseGame_CameraPositions extends Module {
 			"Senpai", "Roses", "Thorns",
 			"Ugh", "Guns", "Stress",
 			"Darnell", "Lit Up", "2hot", "Blazin"
-		]
+		];
 
 		var settings = {
 			position: {
@@ -99,9 +99,9 @@ class SSCS_BaseGame_CameraPositions extends Module {
 			cameraSetter.SETTINGS = null;
 		}
 
-		if (currentStage.getGirlfriend() == null) return;
-		if (currentStage.getDad() == null) return;
-		if (currentStage.getBoyfriend() == null) return;
+		if (currentStage.getGirlfriend() == null) { cameraSetter.SETTINGS = null; return;}
+		if (currentStage.getDad() == null) { cameraSetter.SETTINGS = null; return;}
+		if (currentStage.getBoyfriend() == null) { cameraSetter.SETTINGS = null; return;}
 
 		var gfPoint = currentStage.getGirlfriend().cameraFocusPoint;
 		var dadPoint = currentStage.getDad().cameraFocusPoint;
