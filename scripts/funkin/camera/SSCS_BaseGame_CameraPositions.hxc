@@ -69,6 +69,17 @@ class SSCS_BaseGame_CameraPositions extends Module {
 		songString = songName + "-" + songVariation;
 		songString = songString.toLowerCase();
 
+		var baseGameSongs = [
+			"Bopeebo", "Fresh", "DadBattle",
+			"Spookeez", "South", "Monster",
+			"Pico", "Philly", "Blammed",
+			"Satin Panties", "High", "M.I.L.F",
+			"Cocoa", "Eggnog", "Winter Horrorland",
+			"Senpai", "Roses", "Thorns",
+			"Ugh", "Guns", "Stress",
+			"Darnell", "Lit Up", "2hot", "Blazin"
+		]
+
 		var settings = {
 			position: {
 				x: null,
@@ -83,6 +94,10 @@ class SSCS_BaseGame_CameraPositions extends Module {
 				direct: false
 			}
 		};
+
+		if (!baseGameSongs.contains(songName)) {
+			cameraSetter.SETTINGS = null;
+		}
 
 		if (currentStage.getGirlfriend() == null) return;
 		if (currentStage.getDad() == null) return;

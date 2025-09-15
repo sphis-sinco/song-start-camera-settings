@@ -49,8 +49,7 @@ class SSCS_CameraSetter extends Module {
                 super.onCountdownStart(event);
 		
 		if (SETTINGS == null)
-			SETTINGS = DEFAULT_SETTINGS;
-
+			return;
 		if (PlayState.instance == null)
 			return;
 		if (!ModuleHandler.getModule("sscs-save-module").getEnabled())

@@ -5,7 +5,7 @@ import funkin.ui.mainmenu.MainMenuState;
 import funkin.modding.module.ModuleHandler;
 
 class SSCS_MenuInjection extends Module {
-	var ModText = "Song Start Camera Settings (v1.0.1)";
+	var ModText = "Song Start Camera Settings (v1.1.0)";
 
 	var disabledText = "Disabled";
 	var enabledText = "Enabled";
